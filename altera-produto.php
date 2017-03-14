@@ -1,19 +1,27 @@
-<?php include("cabecalho.php");
-      include("conecta.php");
-      include("banco-produto.php"); ?>
+<?php 
+include("cabecalho.php");
+include("conecta.php");
+include("banco-produto.php"); 
+require_once("class/Produto.php");
+require_once("class/Categoria.php");
+
+?>
 
 <?php
+$categoria = new Categoria();
+$categoria->id = $_POST['categoria_id'];
 
-$id = $_POST["id"];
-$nome = $_POST["nome"];
-$preco = $_POST["preco"];
-$descricao = $_POST["descricao"];
-$categoria_id = $_POST['categoria_id'];
+$produto = new Produto();
+
+$produto->nome = $_POST["nome"];
+$produto->preco = $_POST["preco"];
+$produto->descricao = $_POST["descricao"];
+$produto->categoria = $categoria;
 
 if(array_key_exists('usado', $_POST)) {
-    $usado = "true";
+    $produto->usado = "true";
 } else {
-    $usado = "false";
+    $produto->usado = "false";
 }
 
 if(alteraProduto($conexao, $id, $nome, $preco, $descricao, $categoria_id, $usado)) { ?>
