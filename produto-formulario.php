@@ -1,12 +1,19 @@
-<?php include("cabecalho.php");
-      include("conecta.php");
-      include("banco-categoria.php");
-      include("logica-usuario.php");
+<?php
+include("cabecalho.php");
+include("conecta.php");
+include("banco-categoria.php");
+include("logica-usuario.php");
+require_once("class/Produto.php");
 
 verificaUsuario();
 
-$produto = array("nome" => "", "descricao" => "", "preco" => "", "categoria_id" => "1");
-$usado = "";
+//$produto = array("nome" => "", "descricao" => "", "preco" => "", "categoria_id" => "1");
+@$produto = new Produto();
+@$produto->nome = '';
+@$produto->descricao = '';
+@$produto->preco = '';
+@$produto->categoria->id = 1;
+@$produto->usado = "";
 
 $categorias = listaCategorias($conexao);
 ?>

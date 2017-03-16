@@ -1,6 +1,7 @@
-<?php include("cabecalho.php");
-      include("conecta.php");
-      include("banco-produto.php"); ?>
+<?php 
+include("cabecalho.php");
+include("conecta.php");
+include("banco-produto.php"); ?>
 
 <table class="table table-striped table-bordered">
 
@@ -10,9 +11,10 @@
     ?>
     <tr>
         <td><?= $produto->nome ?></td>
-        <td><?= $produto->preco ?></td>
+        <td><?= $produto->getPreco(); ?></td>
         <td><?= substr($produto->descricao, 0, 40) ?></td>
         <td><?= $produto->categoria->nome ?></td>
+        <td><?= $produto->precoComDesconto() ?></td>
         <td><a class="btn btn-primary" href="produto-altera-formulario.php?id=<?=$produto->id?>">alterar</a></td>
         <td>
             <form action="remove-produto.php" method="post">

@@ -24,12 +24,14 @@ if(array_key_exists('usado', $_POST)) {
     $produto->usado = "false";
 }
 
+
+
 if(insereProduto($conexao, $produto)) { ?>
-    <p class="text-success">O produto <?= $nome; ?>, <?= $preco; ?> adicionado com sucesso!</p>
+    <p class="text-success">O produto <?= $produto->nome; ?>, <?= $produto->preco; ?> adicionado com sucesso!</p>
 <?php } else {
     $msg = mysqli_error($conexao);
 ?>
-    <p class="text-danger">O produto <?= $nome; ?> não foi adicionado: <?= $msg ?></p>
+    <p class="text-danger">O produto <?= $produto->nome; ?> não foi adicionado: <?= $msg ?></p>
 <?php
 }
 ?>
