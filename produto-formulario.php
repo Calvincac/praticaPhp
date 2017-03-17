@@ -4,16 +4,21 @@ include("conecta.php");
 include("banco-categoria.php");
 include("logica-usuario.php");
 require_once("class/Produto.php");
+require_once("class/Categoria.php");
 
 verificaUsuario();
 
 //$produto = array("nome" => "", "descricao" => "", "preco" => "", "categoria_id" => "1");
+$categoria = new Categoria();
+@$categoria->setId(1);
+@$categoria->setNome("");
+
 @$produto = new Produto();
-@$produto->nome = '';
-@$produto->descricao = '';
-@$produto->preco = '';
-@$produto->categoria->id = 1;
-@$produto->usado = "";
+@$produto->setNome('');
+@$produto->setDescricao('');
+@$produto->setPreco('');
+@$produto->setCategoria($categoria);
+@$produto->setUsado("");
 
 $categorias = listaCategorias($conexao);
 ?>

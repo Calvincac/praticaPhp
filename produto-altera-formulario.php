@@ -8,12 +8,12 @@ $produto = buscaProduto($conexao, $id);
 
 $categorias = listaCategorias($conexao);
 
-$usado = $produto->usado ? "checked='checked'" : "";
+$usado = $produto->isUsado() ? "checked='checked'" : "";
 ?>
 
 <h1>Alterando produto</h1>
 <form action="altera-produto.php" method="post">
-    <input type="hidden" name="id" value="<?=$produto->id?>" />
+    <input type="hidden" name="id" value="<?=$produto->getId()?>" />
     <table class="table">
 
         <?php include("produto-formulario-base.php"); ?>

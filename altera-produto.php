@@ -9,7 +9,7 @@ require_once("class/Categoria.php");
 
 <?php
 $categoria = new Categoria();
-$categoria->id = $_POST['categoria_id'];
+$categoria->setId($_POST['categoria_id']);
 
 $produto = new Produto();
 
