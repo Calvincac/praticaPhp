@@ -5,6 +5,8 @@ include("banco-categoria.php");
 include("logica-usuario.php");
 require_once("class/Produto.php");
 require_once("class/Categoria.php");
+require_once("class/ProdutoDao.php");
+require_once("class/CategoriaDao.php");
 
 verificaUsuario();
 
@@ -20,7 +22,9 @@ $categoria = new Categoria();
 @$produto->setCategoria($categoria);
 @$produto->setUsado("");
 
-$categorias = listaCategorias($conexao);
+$categoriaDao = new CategoriaDao($conexao);
+
+$categorias = $categoriaDao->listaCategorias();
 ?>
 
 <h1>Formulário de produto</h1>

@@ -6,7 +6,8 @@ include("banco-produto.php"); ?>
 <table class="table table-striped table-bordered">
 
     <?php
-        $produtos = listaProdutos($conexao);
+        $produtoDao = new ProdutoDao($conexao);
+        $produtos = $produtoDao->listaProdutos();
         
         foreach($produtos as $produto) :
     ?>

@@ -4,6 +4,8 @@ include("conecta.php");
 include("banco-produto.php"); 
 require_once("class/Produto.php");
 require_once("class/Categoria.php");
+require_once("class/ProdutoDao.php");
+require_once("class/CategoriaDao.php");
 
 ?>
 
@@ -24,7 +26,9 @@ if(array_key_exists('usado', $_POST)) {
     $produto->usado = "false";
 }
 
-if(alteraProduto($conexao, $produto)) { ?>
+$produtoDao = new ProdutoDao($conexao);
+
+if($produtoDao->alteraProduto($produto)) { ?>
     <p class="text-success">O produto <?= $produto->nome; ?>, <?= $produto->preco; ?> alterado com sucesso!</p>
 <?php } else {
     $msg = mysqli_error($conexao);

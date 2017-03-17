@@ -1,12 +1,17 @@
-<?php include("cabecalho.php");
-      include("conecta.php");
-      include("banco-categoria.php");
-      include("banco-produto.php");
+<?php 
+include("cabecalho.php");
+include("conecta.php");
+include("banco-categoria.php");
+include("banco-produto.php");
 
 $id = $_GET['id'];
-$produto = buscaProduto($conexao, $id);
 
-$categorias = listaCategorias($conexao);
+$produtoDao = new Produto($conexao);
+$categoriaDao = new Categoria($conexao);
+
+$produto = $produtoDao->buscaProduto($id);
+
+$categorias = $categoriaDao->listaCategorias();
 
 $usado = $produto->isUsado() ? "checked='checked'" : "";
 ?>
