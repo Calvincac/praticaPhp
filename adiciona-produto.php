@@ -1,8 +1,7 @@
 <?php 
-include("cabecalho.php");
-include("conecta.php");
-include("banco-produto.php");
-include("logica-usuario.php");
+require_once("cabecalho.php");
+require_once("banco-produto.php");
+require_once("logica-usuario.php");
 require_once("class/Produto.php");
 require_once("class/Categoria.php");
 
@@ -11,29 +10,25 @@ verificaUsuario();
 $categoria = new Categoria();
 $categoria->setId($_POST['categoria_id']);
 
-$produto = new Produto();
-
-$produto->setNome($_POST["nome"]);
-$produto->setPreco($_POST["preco"]);
-$produto->setDescricao($_POST["descricao"]);
-$produto->setCategoria($categoria);
-
-print_r($produto);
+$nome = $_POST['nome'];
+$preco = $_POST['preco'];
+$descricao = $_POST['descricao'];
 
 if(array_key_exists('usado', $_POST)) {
-    $produto->setUsado("true");
+	$usado = "true";
 } else {
-    $produto->setUsado("false");
+	$usado = "false";
 }
 
-$produtoDao = new ProdutoDao($conexao);
+$produto = new Produto($nome, $preco, $descricao, $categoria, $usado);
 
-if($produtoDao->insereProduto($produto)) { ?>
-    <p class="text-success">O produto <?= $produto->getNome(); ?>, <?= $produto->getPreco(); ?> adicionado com sucesso!</p>
-<?php } else {
-    $msg = mysqli_error($conexao);
+if(insereProduto($conexao, $produto)) { ?>
+	<p class="text-success">O produto <?= $produto->getNome() ?>, <?= $produto->getPreco() ?> foi adicionado.</p>
+<?php 
+} else {
+	$msg = mysqli_error($conexao);
 ?>
-    <p class="text-danger">O produto <?= $produto->getNome(); ?> não foi adicionado: <?= $msg ?></p>
+	<p class="text-danger">O produto <?= $produto->getNome() ?> não foi adicionado: <?= $msg?></p>
 <?php
 }
 ?>

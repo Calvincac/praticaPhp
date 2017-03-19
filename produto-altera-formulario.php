@@ -1,32 +1,28 @@
-<?php 
-include("cabecalho.php");
-include("conecta.php");
-include("banco-categoria.php");
-include("banco-produto.php");
+<?php
+require_once("cabecalho.php");
+require_once("banco-categoria.php");
+require_once("banco-produto.php");
 
 $id = $_GET['id'];
+$produto = buscaProduto($conexao, $id);
+$categorias = listaCategorias($conexao);
 
-$produtoDao = new Produto($conexao);
-$categoriaDao = new Categoria($conexao);
+$selecao_usado = $produto->isUsado() ? "checked='checked'" : "";
+$produto->setUsado($selecao_usado);
 
-$produto = $produtoDao->buscaProduto($id);
-
-$categorias = $categoriaDao->listaCategorias();
-
-$usado = $produto->isUsado() ? "checked='checked'" : "";
 ?>
 
 <h1>Alterando produto</h1>
 <form action="altera-produto.php" method="post">
-    <input type="hidden" name="id" value="<?=$produto->getId()?>" />
-    <table class="table">
-
-        <?php include("produto-formulario-base.php"); ?>
-        
-        <tr>
-            <td><button class="btn btn-primary" type="submit">Alterar</button></td>
-        </tr>
-    </table>
+	<input type="hidden" name="id" value="<?=$produto->getId()?>">
+	<table class="table">
+		<?php include("produto-formulario-base.php"); ?>
+		<tr>
+			<td>
+				<button class="btn btn-primary" type="submit">Alterar</button>
+			</td>
+		</tr>
+	</table>
 </form>
 
 <?php include("rodape.php"); ?>
